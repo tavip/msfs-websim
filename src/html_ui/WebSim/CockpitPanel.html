@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <base href="/">
+        <script src="/WebSim/Import.js"></script>
+        <script src="/WebSim/Simvar.js"></script>
+
+        <link rel="stylesheet" href="/SCSS/common.css" />
+
+        <script type="text/javascript" src="/JS/coherent.js"></script>
+        <script type="text/javascript" src="/JS/common.js"></script>
+        <script type="text/javascript" src="/JS/Types.js"></script>
+        <script type="text/javascript" src="/JS/avionics.js"></script>
+        <script type="text/javascript" src="/JS/simplane.js"></script>
+
+        <script type="text/javascript" src="/Pages/VCockpit/Instruments/Shared/Utils/DataReadManager.js"></script>
+        <script type="text/javascript" src="/Pages/VCockpit/Instruments/Shared/BaseInstrument.js"></script>
+        <script type="text/javascript" src="/Pages/VCockpit/Instruments/Shared/Utils/XMLLogic.js"></script>
+        <script type="text/javascript" src="/Pages/VCockpit/Systems/Systems.js"></script>
+
+        <script type="text/javascript" src="/Pages/VCockpit/Core/VCockpit.js"></script>
+        <script type="text/javascript" src="/Pages/VCockpit/Core/VCockpitLogic.js"></script>
+        <script type="text/javascript" src="/WebSim/Utils.js"></script>
+        <script type="text/javascript" src="/WebSim/CockpitPanel.js"></script>
+    </head>
+    <body style="background-color:grey">
+        <vcockpit-panel id="panel"></vcockpit-panel>
+        <vcockpit-logic id="logic"></vcockpit-logic>
+        <script>
+            const urlParams = new URLSearchParams(window.location.search);
+            websim.setupPanel(urlParams.get("index"));
+        </script>
+    </body>
+</html>

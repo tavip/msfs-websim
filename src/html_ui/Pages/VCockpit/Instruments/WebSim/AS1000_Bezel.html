@@ -1,0 +1,235 @@
+<script type="text/html" id="AS1000_Bezel">
+    <div class="as1000-bezel-left">
+        <div class="as1000-bezel-group-horiz" style="display: flex; flex-direction: row-reverse;">
+            <button event="H:NAV_Switch" class="as1000-bezel" style="align: center; font-size: 20px"><b>&harr;</b></button>
+        </div>
+        <div class="as1000-bezel-group-vert">
+            <p class="as1000-bezel-knob-top">NAV</p>
+            <svg class="nav" height="100" width="100" event="H:NAV_Push"
+                 event-inner-dec="H:NAV_Small_DEC" event-inner-inc="H:NAV_Small_INC"
+                 event-outer-dec="H:NAV_Large_DEC" event-outer-inc="H:NAV_Large_INC"
+                 outer-degrees="0" inner-degrees="0" outer-step="20" inner-step="20">
+                <defs>
+                    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#555555;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#111111;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <circle cx="50" cy="50" r="40" stroke="white" stroke-width="3" fill="url(#grad)" />
+                <circle class="outer-dot" cx="50" cy="20" r="3" stroke="black" stroke-width="3" fill="url(#grad)"/>
+                <circle class="inner" cx="50" cy="50" r="20" stroke="black" stroke-width="3" fill="url(#grad)" />
+                <circle class="inner-dot" cx="50" cy="40" r="3" stroke="black" stroke-width="3" fill="url(#grad)"/>
+            </svg>
+            <p class="as1000-bezel-knob-bottom">PUSH<br>1-2</p>
+        </div>
+        <div class="as1000-bezel-group-vert">
+            <p class="as1000-bezel-knob-top">HDG</p>
+            <svg class="hdg" height="100" width="100" event="K:HEADING_BUG_SET"
+                 event-inner-dec="K:HEADING_BUG_DEC" event-inner-inc="K:HEADING_BUG_INC"
+                 inner-degrees="0" inner-step="20">
+                <defs>
+                    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#555555;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#111111;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <circle class="inner" cx="50" cy="50" r="40" stroke="white" stroke-width="3" fill="url(#grad)" />
+                <circle class="inner-dot" cx="50" cy="20" r="3" stroke="black" stroke-width="3" fill="url(#grad)"/>
+            </svg>
+            <p class="as1000-bezel-knob-bottom">PUSH<br>HDG SYNC</p>
+        </div>
+        <div class="as1000-bezel-group-horiz">
+            <button event="H:TBD" class="as1000-bezel">AP<br></button>
+            <button event="H:TBD" class="as1000-bezel">FD<br></button>
+        </div>
+        <div class="as1000-bezel-group-horiz">
+            <button event="H:TBD" class="as1000-bezel">HDG</button>
+            <button event="H:TBD" class="as1000-bezel">ALT</button>
+        </div>
+        <div class="as1000-bezel-group-horiz">
+            <button event="H:TBD" class="as1000-bezel">NAV</button>
+            <button event="H:TBD" class="as1000-bezel">VNAV</button>
+        </div>
+        <div class="as1000-bezel-group-horiz">
+            <button event="H:TBD" class="as1000-bezel">APR</button>
+            <button event="H:TBD" class="as1000-bezel">BC</button>
+        </div>
+        <div class="as1000-bezel-group-horiz">
+            <button event="H:TBD" class="as1000-bezel">VS</button>
+            <button event="H:TBD" class="as1000-bezel">NOSE<br>UP</button>
+        </div>
+        <div class="as1000-bezel-group-horiz">
+            <button event="H:TBD" class="as1000-bezel">FLC</button>
+            <button event="H:TBD" class="as1000-bezel">NOSE<br>DOWN</button>
+        </div>
+        <div class="as1000-bezel-group-vert">
+            <p class="as1000-bezel-knob-top">ALT</p>
+            <svg class="alt" height="100" width="100" event="H:TBD"
+                 event-inner-dec="H:TBD" event-inner-inc="H:TBD"
+                 event-outer-dec="H:TBD" event-outer-inc="H:TBD"
+                 outer-degrees="0" inner-degrees="0" outer-step="20" inner-step="20">
+                <defs>
+                    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#555555;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#111111;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <circle cx="50" cy="50" r="40" stroke="white" stroke-width="3" fill="url(#grad)" />
+                <circle class="outer-dot" cx="50" cy="20" r="3" stroke="black" stroke-width="3" fill="url(#grad)"/>
+                <circle class="inner" cx="50" cy="50" r="20" stroke="black" stroke-width="3" fill="url(#grad)" />
+                <circle class="inner-dot" cx="50" cy="40" r="3" stroke="black" stroke-width="3" fill="url(#grad)"/>
+            </svg>
+        </div>
+    </div>
+    <div class="as1000-bezel-center">
+        <div class="as1000-bezel-group-vert">
+            <p class="as1000-bezel-center"></p>
+            <button event="H:SOFTKEYS_1" class="as1000-bezel-center">&#9650;</button>
+        </div>
+        <div class="as1000-bezel-group-vert">
+            <p class="as1000-bezel-center"></p>
+            <button event="H:SOFTKEYS_2" class="as1000-bezel-center">&#9650;</button>
+        </div>
+        <div class="as1000-bezel-group-vert">
+            <p class="as1000-bezel-center"></p>
+            <button event="H:SOFTKEYS_3" class="as1000-bezel-center">&#9650;</button>
+        </div>
+        <div class="as1000-bezel-group-vert">
+            <p class="as1000-bezel-center"></p>
+            <button event="H:SOFTKEYS_4" class="as1000-bezel-center">&#9650;</button>
+        </div>
+        <div class="as1000-bezel-group-vert">
+            <p class="as1000-bezel-center"></p>
+            <button event="H:SOFTKEYS_5" class="as1000-bezel-center">&#9650;</button>
+        </div>
+        <div class="as1000-bezel-group-vert">
+            <p class="as1000-bezel-center"></p>
+            <button event="H:6" class="as1000-bezel-center">&#9650;</button>
+        </div>
+        <div class="as1000-bezel-group-vert">
+            <p class="as1000-bezel-center"></p>
+            <button event="H:SOFTKEYS_7" class="as1000-bezel-center">&#9650;</button>
+        </div>
+        <div class="as1000-bezel-group-vert">
+            <p class="as1000-bezel-center"></p>
+            <button event="H:SOFTKEYS_8" class="as1000-bezel-center">&#9650;</button>
+        </div>
+        <div class="as1000-bezel-group-vert">
+            <p class="as1000-bezel-center"></p>
+            <button event="H:SOFTKEYS_9" class="as1000-bezel-center">&#9650;</button>
+        </div>
+        <div class="as1000-bezel-group-vert">
+            <p class="as1000-bezel-center"></p>
+            <button event="H:SOFTKEYS_10" class="as1000-bezel-center">&#9650;</button>
+        </div>
+        <div class="as1000-bezel-group-vert">
+            <p class="as1000-bezel-center"></p>
+            <button event="H:SOFTKEYS_11" class="as1000-bezel-center">&#9650;</button>
+        </div>
+        <div class="as1000-bezel-group-vert">
+            <p class="as1000-bezel-center"></p>
+            <button event="H:SOFTKEYS_12" class="as1000-bezel-center">&#9650;</button>
+        </div>
+    </div>
+    <div class="as1000-bezel-right">
+        <div class="as1000-bezel-group-horiz" style="display: flex; flex-direction: row;">
+            <button event="H:COM_Switch" class="as1000-bezel" style="font-size: 20px"><b>&harr;</b></button>
+        </div>
+        <div class="as1000-bezel-group-vert">
+            <svg class="com" height="100" width="100" event="H:COM_Push"
+                 event-inner-dec="H:COM_Small_DEC" event-inner-inc="H:COM_Small_INC"
+                 event-outer-dec="H:COM_Large_DEC" event-outer-inc="H:COM_Large_INC"
+                 outer-degrees="0" inner-degrees="0" outer-step="20" inner-step="20">
+                <defs>
+                    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#555555;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#111111;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <circle cx="50" cy="50" r="40" stroke="white" stroke-width="3" fill="url(#grad)" />
+                <circle class="outer-dot" cx="50" cy="20" r="3" stroke="black" stroke-width="3" fill="url(#grad)"/>
+                <circle class="inner" cx="50" cy="50" r="20" stroke="black" stroke-width="3" fill="url(#grad)" />
+                <circle class="inner-dot" cx="50" cy="40" r="3" stroke="black" stroke-width="3" fill="url(#grad)"/>
+            </svg>
+            <p class="as1000-bezel-small">PUSH<br>1-2</p>
+        </div>
+        <div class="as1000-bezel-group-vert">
+            <p class="as1000-bezel-knob-top">CRS - BARO</p>
+            <svg class="crs-baro" height="100" width="100" event="H:CRS_Push"
+                 event-inner-dec="H:CRS_DEC" event-inner-inc="H:CRS_INC"
+                 event-outer-dec="H:BARO_DEC" event-outer-inc="H:BARO_INC"
+                 outer-degrees="0" inner-degrees="0" outer-step="20" inner-step="20">
+                <defs>
+                    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#555555;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#111111;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <circle cx="50" cy="50" r="40" stroke="white" stroke-width="3" fill="url(#grad)" />
+                <circle class="outer-dot" cx="50" cy="20" r="3" stroke="black" stroke-width="3" fill="url(#grad)"/>
+                <circle class="inner" cx="50" cy="50" r="20" stroke="black" stroke-width="3" fill="url(#grad)" />
+                <circle class="inner-dot" cx="50" cy="40" r="3" stroke="black" stroke-width="3" fill="url(#grad)"/>
+            </svg>
+            <p class="as1000-bezel-knob-bottom">PUSH<br>CRS CTR</p>
+        </div>
+        <div class="as1000-bezel-group-vert">
+            <p class="as1000-bezel-knob-top">RANGE</p>
+            <button event="H:JOYSTICK_UP" class="as1000-bezel-range">&#9650;</button>
+            <div class="as1000-bezel-group-horiz">
+                <button event="H:JOYSTICK_LEFT" class="as1000-bezel-range">&#9664;</button>
+                <svg class="range" height="50" width="50" event="H:JOYSTICK_PUSH"
+                     event-inner-dec="H:RANGE_DEC" event-inner-inc="H:RANGE_INC"
+                     inner-degrees="0" inner-step="20">
+                    <defs>
+                        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#555555;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#111111;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <circle class="inner" cx="25" cy="25" r="20" stroke="black" stroke-width="3" fill="url(#grad)" />
+                    <circle class="inner-dot" cx="25" cy="18" r="3" stroke="black" stroke-width="3" fill="url(#grad)"/>
+                </svg>
+                <button event="H:JOYSTICK_RIGHT" class="as1000-bezel-range">&#9658;</button>
+            </div>
+            <button event="H:JOYSTICK_DOWN" class="as1000-bezel-range">&#9660;</button>
+            <p class="as1000-bezel-knob-bottom">PUSH<br>PAN</p>
+        </div>
+        <div class="as1000-bezel-group-horiz">
+            <button event="H:DIRECTTO" class="as1000-bezel"><s>D</s>&rarr;</button>
+            <button event="H:MENU" class="as1000-bezel">MENU<br></button>
+        </div>
+        <div class="as1000-bezel-group-horiz">
+            <button event="H:FPL_Push" class="as1000-bezel">FPL</button>
+            <button event="H:PROC_Push" class="as1000-bezel">PROC</button>
+        </div>
+        <div class="as1000-bezel-group-horiz">
+            <button event="H:CLR" class="as1000-bezel">CLR</button>
+            <button event="H:ENT_Push" class="as1000-bezel">ENT</button>
+        </div>
+        <div class="as1000-bezel-group-vert">
+            <p>FMS</p>
+            <svg class="fms" height="100" width="100" event="H:FMS_Upper_PUSH"
+                event-inner-dec="H:FMS_Upper_DEC" event-inner-inc="H:FMS_Upper_INC"
+                event-outer-dec="H:FMS_Lower_DEC" event-outer-inc="H:FMS_Lower_INC"
+                 outer-degrees="0" inner-degrees="0" outer-step="20" inner-step="20">
+                <defs>
+                    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#555555;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#111111;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <circle cx="50" cy="50" r="40" stroke="white" stroke-width="3" fill="url(#grad)" />
+                <circle class="outer-dot" cx="50" cy="20" r="3" stroke="black" stroke-width="3" fill="url(#grad)"/>
+                <circle class="inner" cx="50" cy="50" r="20" stroke="black" stroke-width="3" fill="url(#grad)" />
+                <circle class="inner-dot" cx="50" cy="40" r="3" stroke="black" stroke-width="3" fill="url(#grad)"/>
+            </svg>
+            <p class="as1000-bezel-knob-bottom">DISPLAY BACKUP<p>
+        </div>
+    </div>
+</script>
+
+<link rel="stylesheet" href="AS1000_Bezel.css" />
+
+<script type="text/html" import-script="/JS/Simplane.js"></script>
+
+<script type="text/html" import-script="/Pages/VCockpit/Instruments/WebSim/AS1000_Bezel.js"></script>

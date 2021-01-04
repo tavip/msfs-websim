@@ -1,0 +1,93 @@
+as1000-bezel-element {
+    display: flex;
+}
+
+div.as1000-bezel-left {
+    background: #111111;
+    display: flex;
+    flex-direction: column;
+    width: 158px;
+}
+
+div.as1000-bezel-right {
+    background: #111111;
+    display: flex;
+    flex-direction: column;
+    width: 158px;
+}
+
+div.as1000-bezel-center {
+    margin-top: 768px;
+    background: #111111;
+    display: flex;
+    width: 1024px;
+}
+
+div.as1000-bezel-group-horiz {
+    margin: 10;
+    display: flex;
+}
+
+div.as1000-bezel-group-vert {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+p.as1000-bezel-center {
+    border-radius: 4px;
+    background: #808080;
+    padding: 2px;
+    width: 2px;
+    height: 20px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+p.as1000-bezel-knob-top {
+    font-size: 20px;
+}
+
+p.as1000-bezel-knob-bottom {
+    font-size: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+button.as1000-bezel {
+    width: 65px;
+    height: 40px;
+    padding: 2px;
+    margin-top: 2px;
+    margin-left: 5px;
+    font-size: 12px;
+    background: linear-gradient(45deg, #555555, #111111);
+    border-radius: 15px;
+    color: white;
+    outline: none;
+    box-shadow: none;
+}
+
+button.as1000-bezel-center  {
+    width: 65px;
+    padding: 10px;
+    margin: 10px;
+    font-size: 12px;
+    background: linear-gradient(45deg, #555555, #111111);
+    border-radius: 15px;
+    color: white;
+    outline: none;
+    box-shadow: none;
+}
+
+button.as1000-bezel-range  {
+    width: 45px;
+    padding: 5px;
+    margin: 2px;
+    font-size: 12px;
+    background: linear-gradient(45deg, #555555, #111111);
+    border-radius: 15px;
+    color: white;
+    outline: none;
+    box-shadow: none;
+}

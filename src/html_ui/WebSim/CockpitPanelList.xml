@@ -1,0 +1,17 @@
+<panel-list>
+        <panel path="Airplanes/Asobo_C172sp_AS1000" width="1024" height="768">
+                <instrument html="WebSim/AS1000_Bezel.html" name="AS1000_BEZEL_PFD" x="0" y="0" width="1340" height="868"/>
+                <instrument html="NavSystems/AS1000/PFD/AS1000_PFD.html" name="AS1000_PFD" x="158" y="0" width="1024" height="768"/>
+                <instrument html="WebSim/AS1000_Bezel.html" name="AS1000_BEZEL_MFD" x="1350" y="0" width="1340" height="868"/>
+                <instrument html="NavSystems/AS1000/MFD/AS1000_MFD.html"  name="AS1000_MFD" x="1508" y="0" width="1024" height="768"/>
+        <instrument html="WebSim/ElectricalSwitches.html" name="ElectricalSwitches" x="10" y="900" width="500" height="100"/>
+        </panel>
+        <panel path="Airplanes/Asobo_Bonanza_G36" width="1024" height="768">
+                <instrument html="WebSim/AS1000_Bezel.html" name="AS1000_BEZEL_PFD" x="0" y="0" width="1340" height="868"/>
+                <instrument html="NavSystems/AS1000/PFD/AS1000_PFD.html" name="AS1000_PFD" x="158" y="0" width="1024" height="768"/>
+                <instrument html="WebSim/AS1000_Bezel.html" name="AS1000_BEZEL_MFD" x="1350" y="0" width="1340" height="868"/>
+                <instrument html="NavSystems/AS1000/MFD/AS1000_MFD.html"  name="AS1000_MFD" x="1508" y="0" width="1024" height="768"/>
+                <instrument html="WebSim/ElectricalSwitches.html" name="ElectricalSwitches" x="10" y="900" width="500" height="100"/>
+        </panel>
+</panel-list>
+

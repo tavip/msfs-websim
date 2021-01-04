@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <script type="text/javascript" src="/WebSim/Utils.js"></script>
+        <script type="text/javascript" src="/WebSim/CockpitPanelList.js"></script>
+        <link rel="stylesheet" href="/WebSim/CockpitPanelList.css" />
+    </head>
+    <body>
+        <div class="panels">
+            <div class="panel fade">
+              <img src="" style="width:100%">
+              <a class="title"></a>
+            </div>
+            <a class="prev">&#10094;</a>
+            <a class="next">&#10095;</a>
+        </div>
+        <br>
+        <div class="dots" style="text-align:center">
+            <span class="dot"></span>
+        </div>
+        <script>
+            window.onload = (event) => websim.loadPanels();
+        </script>
+    </body>
+</html>

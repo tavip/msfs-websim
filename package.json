@@ -1,0 +1,18 @@
+{
+    "name": "msfs-websim",
+    "version": "0.0.1",
+    "description": "A Web Simulator for the Microsoft Flight Simulator",
+    "homepage": "https://github.com/tavip/msfs-websim",
+    "license": "GPLv2",
+    "scripts": {
+        "start": "node src/server.js"
+    },
+    "config": {
+        "port": "8080",
+        "msfs_install_dir": "D:/steam/steamapps/common/MicrosoftFlightSimulator/",
+        "msfs_packages_dir": "D:/msfs2020/"
+    },
+    "dependencies": {
+        "glob": "^7.1.6"
+    }
+}
