@@ -11,6 +11,12 @@ class SimVar {
         this.SetSimVarValue("COM STANDBY FREQUENCY:2", null, 122.8);
         this.SetSimVarValue("COM ACTIVE FREQUENCY:1", null, 122.8);
         this.SetSimVarValue("COM ACTIVE FREQUENCY:2", null, 122.8);
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.SetSimVarValue("PLANE LATITUDE", null, position.coords.latitude);
+                this.SetSimVarValue("PLANE LONGITUDE", null, position.coords.longitude);
+            });
+        }
     }
     /**
      * Handle simvar updates for K prefixed variables. These seem to be commands
@@ -189,6 +195,7 @@ class SimVar {
             return val;
 
         //console.log(`unhandled get var ${code} / ${unit}`);
+
         switch (unit) {
         case "degrees":
         case "degree":
