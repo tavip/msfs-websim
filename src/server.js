@@ -156,7 +156,7 @@ http.createServer(function (req, resp) {
             } else {
                 if (f == "/js/common.js" || f == "/pages/vcockpit/core/vcockpit.js") {
                     let tmp = content.toString();
-                    tmp = tmp.replace(/coui:\/\/html_ui/g, "");
+                    tmp = tmp.replace(/"coui:\/\/html_ui([^"]*)"/ig, "\`${window.location.origin}$1\`");
                     tmp = tmp.replace(/bsolutePath\(window.location.pathname/g,'bsolutePath("/"')
                     content = new Buffer.from(tmp, 'utf-8');
                 } else if (path.extname(f) == '.html') {
