@@ -19,4 +19,16 @@ class WebSim {
             xhr.send();
         });
     }
+    static getXML(xmlPath) {
+        let xhr = new XMLHttpRequest();
+
+        xhr.open("GET", xmlPath, false);
+        xhr.send();
+        if (xhr.status === 200) {
+            return xhr.responseText;
+        } else {
+            return "";
+        }
+    }
+
 }

@@ -41,7 +41,7 @@ class WebSimCockpitPanelData {
     }
 
     setConfigFile(filename) {
-        this.sConfigFile = filename;
+        this.sConfigFile = WebSim.getXML("VFS/" + filename);
     }
 
     addInstrument(url, name, x, y, z, w) {
