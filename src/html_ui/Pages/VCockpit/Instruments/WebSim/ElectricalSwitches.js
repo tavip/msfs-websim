@@ -4,11 +4,10 @@ class ElectricalSwitches extends BaseInstrument {
     }
     get templateID() { return "ElectricalSwitches"; }
     connectedCallback() {
-        //super.connectedCallback();
-        this.loadXMLConfig();
-    }
-    onXMLConfigLoaded(_xml) {
-        this.xmlConfig = _xml.responseXML;
+        if (!this.xmlConfig) {
+            this.loadXMLConfig();
+        }
+
         if (!this.xmlConfig) {
             return;
         }
