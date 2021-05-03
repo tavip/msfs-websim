@@ -2,8 +2,11 @@ var http = require('http');
 const fs = require('fs');
 const glob = require('glob');
 const path = require('path');
+const powershell = require('node-powershell');
 const { Buffer } = require('buffer');
 const { dir } = require('console');
+const { runInContext } = require('vm');
+const { type } = require('os');
 
 var config = {
     "port": process.env.npm_package_config_port,
@@ -11,24 +14,31 @@ var config = {
     "msfs_packages_dir": process.env.npm_package_config_msfs_packages_dir
 };
 
-try {
-    if (!fs.statSync(config.msfs_install_dir + '/Packages').isDirectory()) {
-        throw "invalid MSFS install directory";
-    }
-    if (!fs.statSync(config.msfs_packages_dir + '/Official/OneStore').isDirectory()) {
-        throw ("invalid MSFS packages directory");
-    }
-    if (!config.port) {
-        console.warn("using default 8080 port")
-        config.port=8080;
-    }
-} catch (err) {
-    console.error("bad configuration, exiting");
-    throw err;
-}
+async function findMSFS() {
+    const msStoreName = "Microsoft.FlightSimulator";
+    let msStorePubId;
+    let ps = new powershell();
 
-var packages_dirs = [ config.msfs_packages_dir + '/Official/OneStore/',
-                      config.msfs_packages_dir + '/Community/', '.' ]
+    if (!config.msfs_install_dir) {
+        ps.addCommand(`Get-AppxPackage ${msStoreName} | ConvertTo-Json`)
+        let res = JSON.parse(await ps.invoke());
+        if (res) {
+            config.msfs_install_dir = res.InstallLocation;
+            msStorePubId = res.PublisherId;
+        }
+        ps.clear();
+    }
+    if (!config.msfs_packages_dir) {
+        if (msStorePubId) {
+            ps.addCommand(`cat ${process.env.LOCALAPPDATA}\\Packages\\${msStoreName}_${msStorePubId}\\LocalCache\\UserCfg.opt | Select-String InstalledPackagesPath`);
+            let res = await ps.invoke();
+            if (res) {
+                config.msfs_packages_dir = res.match(/"(.*)"/)[1]
+            }
+        }
+    }
+    ps.dispose();
+}
 
 /**
  * Create a database with all of the files from all packages for a given
@@ -75,22 +85,50 @@ function search_files(top_dirs, type, filematch=null) {
     }
 
     console.log(`found ${files.size} files`);
-    return files
+    return files;
 }
 
-html_ui_files = search_files([config.msfs_install_dir + '/Packages'].concat(packages_dirs), 'html_ui')
-vfs_files = search_files(packages_dirs, 'SimObjects', [ '.xml', 'thumbnail.jpg' ])
+async function findFiles() {
+    await findMSFS();
 
-/**
-  * Some HTML files pull in CSS files by using relative paths (e.g. style.css
-  * instead of a/b/style.css). To work-around this issue keep an array with the
-  * directories of HTML files and search the CSS files in all of them.
-  */
-html_dirs = new Array();
-html_dirs.push("");
+    try {
+        if (!fs.statSync(config.msfs_install_dir + '/Packages').isDirectory()) {
+            throw "invalid MSFS install directory";
+        } else {
+            console.log(`MSFS install dir: ${config.msfs_install_dir}`);
+        }
+        if (!fs.statSync(config.msfs_packages_dir + '/Official/OneStore').isDirectory()) {
+            throw ("invalid MSFS packages directory");
+        } else {
+            console.log(`MSFS packages dir: ${config.msfs_packages_dir}`);
+        }
+        if (!config.port) {
+            console.warn("using default 8080 port")
+            config.port = 8080;
+        }
+    } catch (err) {
+        console.error("bad configuration, exiting");
+        throw err;
+    }
 
+    let packages_dirs = [ 
+        config.msfs_packages_dir + '/Official/OneStore/',
+        config.msfs_packages_dir + '/Community/', '.' 
+    ]
 
-http.createServer(function (req, resp) {
+    html_ui_files = search_files([config.msfs_install_dir + '/Packages'].concat(packages_dirs), 'html_ui')
+    vfs_files = search_files(packages_dirs, 'SimObjects', [ '.xml', 'thumbnail.jpg' ])
+
+    /**
+     * Some HTML files pull in CSS files by using relative paths (e.g. style.css
+     * instead of a/b/style.css). To work-around this issue keep an array with the
+     * directories of HTML files and search the CSS files in all of them.
+     */
+    html_dirs = new Array();
+    html_dirs.push("");
+}
+
+function requestListener(req, resp) {
     var f = req.url.split('?')[0];
     let contentType = 'text/plain';
     var files = html_ui_files;
@@ -175,4 +213,12 @@ http.createServer(function (req, resp) {
             }
         });
     }
-}).listen(config.port);
+}
+
+async function main() {
+    await findFiles();
+    console.log(`starting server at http://localhost:${config.port}`)
+    http.createServer(requestListener).listen(config.port);
+}
+
+main()
