@@ -11,6 +11,12 @@ class SimVar {
         this.SetSimVarValue("COM STANDBY FREQUENCY:2", null, 122.8);
         this.SetSimVarValue("COM ACTIVE FREQUENCY:1", null, 122.8);
         this.SetSimVarValue("COM ACTIVE FREQUENCY:2", null, 122.8);
+        this.SetSimVarValue("C:fs9gps:FlightPlanIsActiveApproach", null, false);
+        this.SetSimVarValue("C:fs9gps:FlightPlanIsLoadedApproach", null, false);
+        this.SetSimVarValue("C:fs9gps:NearestIntersectionItemsNumber", null, 0);
+        this.SetSimVarValue("C:fs9gps:NearestVorItemsNumber", null, 0);
+        this.SetSimVarValue("C:fs9gps:NearestNdbItemsNumber", null, 0);
+        this.SetSimVarValue("C:fs9gps:NearestAirportItemsNumber", null, 0);
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 this.SetSimVarValue("PLANE LATITUDE", null, position.coords.latitude);
@@ -27,7 +33,7 @@ class SimVar {
      * @param {*} type - simvar type
      * @param {*} arg - argument for command
      */
-    execute(code, type, arg) {
+    handle_keys(code, type, arg) {
         var cmd = code.split('_');
 
         switch (code) {
@@ -41,7 +47,7 @@ class SimVar {
             /* spacing mode switch command */
             switch (arg) {
             case 0: /* toggle spacing mode between 8.33Khz/25Khz */
-                sval = this.GetSimVarValue(svar, null, false) == 0 ? 1: 0;
+                sval = this.GetSimVarValue(svar) == 0 ? 1: 0;
                 break;
             case 1: /* reset spacing mode to 25Khz */
                 sval = 0;
@@ -81,7 +87,7 @@ class SimVar {
                     step = 0.05;
                     break;
                 case "COM":
-                    if (this.GetSimVarValue(`COM SPACING MODE:${no}`, null, false) > 0) {
+                    if (this.GetSimVarValue(`COM SPACING MODE:${no}`) > 0) {
                         step = 0.005;
                     } else {
                         step = 0.025;
@@ -106,8 +112,8 @@ class SimVar {
             let no = cmd[0].substring(3) || "1";
             let activeVarName = `${radio} ACTIVE FREQUENCY:${no}`;
             let standbyVarName = `${radio} STANDBY FREQUENCY:${no}`;
-            let active = this.GetSimVarValue(activeVarName, null, false);
-            let standby = this.GetSimVarValue(standbyVarName, null, false);
+            let active = this.GetSimVarValue(activeVarName);
+            let standby = this.GetSimVarValue(standbyVarName);
 
             this.SetSimVarValue(activeVarName, null, standby);
             this.SetSimVarValue(standbyVarName, null, active);
@@ -117,7 +123,7 @@ class SimVar {
         case "KOHLSMAN_DEC":
             {
                 let varName = `KOHLSMAN SETTING HG:${arg}`;
-                let hg = this.GetSimVarValue(varName, null, false);
+                let hg = this.GetSimVarValue(varName);
                 let step = cmd[1] == "INC" ? 0.01 : -0.01;
 
                 this.SetSimVarValue(varName, null, parseFloat((hg + step).toFixed(2)));
@@ -133,7 +139,7 @@ class SimVar {
         case "HEADING_BUG_INC":
         case "HEADING_BUG_DEC":
         {
-            let hdg = this.GetSimVarValue("AUTOPILOT HEADING LOCK DIR", "degrees", false);
+            let hdg = this.GetSimVarValue("AUTOPILOT HEADING LOCK DIR", "degrees");
             let step = cmd[2] == "INC" ? 1 : -1;
 
             hdg += step;
@@ -146,7 +152,7 @@ class SimVar {
         }
         case "HEADING_BUG_SET":
         {
-            let hdg = this.GetSimVarValue("PLANE HEADING DEGREES MAGNETIC", "degrees", false);
+            let hdg = this.GetSimVarValue("PLANE HEADING DEGREES MAGNETIC", "degrees");
             this.SetSimVarValue("AUTOPILOT HEADING LOCK DIR", null, hdg);
             break;
         }
@@ -168,7 +174,7 @@ class SimVar {
      */
     updateStandbyRadio(radio, no, step, min, max, fractWrap=true) {
         let svar = `${radio} STANDBY FREQUENCY:${no}`;
-        var val = this.GetSimVarValue(svar, null, false);
+        var val = this.GetSimVarValue(svar);
         var whole = Math.trunc(val);
         var fract = parseFloat((val - whole).toFixed(3));
 
@@ -185,16 +191,71 @@ class SimVar {
         }
         this.SetSimVarValue(svar, null, whole + fract);
     }
+
+    /**
+     * Handle simvar updates for C:fs9gps prefixed variables.
+     *
+     * @param {*} code - simvar command
+     * @param {*} type - simvar type
+     * @param {*} arg - argument for command
+     * @param {*} id - argument for command
+     */
+    handle_fs9gps(code, type, arg, id) {
+        switch (code) {
+        case "IcaoSearchStartCursor":
+        {
+            this.vars.set("C:fs9gps:IcaoSearchCurrentIcao", "000LZ");
+            this.vars.set("C:fs9gps:IcaoSearchCurrentIdent", "000LZ");
+            this.vars.set("C:fs9gps:IcaoSearchCursorPosition", 0);
+            break;
+        }
+        case 'IcaoSearchAdvanceCursor':
+        {  
+            let cpos = this.vars.get("C:fs9gps:IcaoSearchCursorPosition") + arg;
+            this.vars.set("C:fs9gps:IcaoSearchCursorPosition", cpos);
+            break;
+        }
+        case 'NearestAirportMaximumDistance':
+        case 'NearestIntersectionMaximumDistance':
+        case 'NearestVorMaximumDistance':
+        case 'NearestNdbMaximumDistance':
+        case 'NearestIntersectionCurrentLongitude':
+        case 'NearestAirportCurrentLongitude':
+        case 'NearestNdbCurrentLongitude':
+        case 'NearestVorCurrentLongitude':
+        case 'NearestIntersectionCurrentLatitude':
+        case 'NearestAirportCurrentLatitude':
+        case 'NearestNdbCurrentLatitude':
+        case 'NearestVorCurrentLatitude':
+        case 'NearestIntersectionMaximumItems':
+        case 'NearestAirportMaximumItems':
+        case 'NearestNdbMaximumItems':
+        case 'NearestVorMaximumItems':
+        case 'NearestIntersectionItemsNumber':
+        case 'NearestAirportItemsNumber':
+        case 'NearestNdbItemsNumber':
+        case 'NearestVorItemsNumber':
+        case 'FlightPlanIsLoadedApproach':
+        case 'FlightPlanIsActiveApproach':
+            this.vars.set("C:fs9gps:" + code, arg);
+            break;
+        default:
+            console.log(`unhandled fs9gps ${code} ${type} ${arg} ${id}`);
+        }
+    }
+
     IsReady() {
         return true;
     }
-    GetSimVarValue(code, unit, warn=true) {
+    GetSimVarValue(code, unit=null, id=null) {
         var val = this.vars.get(code);
 
         if (val != undefined)
             return val;
 
-        //console.log(`unhandled get var ${code} / ${unit}`);
+        if (code.startsWith("C:fs9gps:")) {
+            console.log(`unhandled get var ${code} / ${unit}`);
+        }
 
         switch (unit) {
         case "degrees":
@@ -212,12 +273,14 @@ class SimVar {
             return "";
         }
     }
-    SetSimVarValue(code, type, value) {
+    SetSimVarValue(code, type, value, id) {
         if (code.startsWith("K:")) {
-            this.execute(code.substring(2), type, value);
-            return;
+            this.handle_keys(code.substring(2), type, value);
+        } else if (code.startsWith("C:fs9gps:")) {
+            this.handle_fs9gps(code.substring(9), type, value, id);
+        } else {
+            this.vars.set(code, value);
         }
-        this.vars.set(code, value);
         return new Promise(function (resolve, reject) {
             resolve();
         });
